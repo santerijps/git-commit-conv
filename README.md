@@ -1,6 +1,6 @@
 # git-commit-conv
 
-Generate a git commit convention hook easily. Simply run the executable in your git repository to add the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standard to the commit-msg hook.
+Generate a git commit-msg hook easily to enforce a strict commit message format. Simply run the executable in your git repository to add the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standard to the commit-msg hook.
 
 You can also provide a path to the git repository and a custom RegEx pattern to check the commit messages against.
 
