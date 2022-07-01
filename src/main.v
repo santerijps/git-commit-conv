@@ -50,6 +50,9 @@ fn main() {
 	install := fp.string('install', `i`,
 		'', 'Install a RegEx pattern with a name.')
 
+	uninstall := fp.string('uninstall', `u`,
+		'', 'Uninstall a RegEx pattern by name.')
+
 	name := fp.string('name', `n`,
 		'', 'The name of the installed RegEx pattern to use.')
 
@@ -150,6 +153,29 @@ fn main() {
 		for {
 			items := reader.read() or { break }
 			println('${items[0]}\t\t->\t\t${items[1]}')
+		}
+		exit(0)
+	}
+
+	if uninstall.len > 0 {
+		data := os.read_file(install_file_path) or { '' }
+		mut reader := csv.new_reader(data)
+		mut writer := csv.new_writer()
+		for {
+			items := reader.read() or { break }
+			if items[0] != uninstall {
+				writer.write(items) or {
+					eprintln(err)
+					exit(1)
+				}
+			}
+		}
+		os.write_file(install_file_path, writer.str()) or {
+			eprintln(err)
+			exit(1)
+		}
+		if verbose == true {
+			println('Unstalled:\t\t$install')
 		}
 		exit(0)
 	}
