@@ -38,6 +38,9 @@ fn main() {
 	verbose := fp.bool('verbose', `v`,
 		false, 'Print program messages.')
 
+	status := fp.bool('status', `s`,
+		false, 'Get the current commit-msg hook (if any)')
+
 	fp.finalize() or {
 		eprintln('Invalid input!')
 		println(fp.usage())
@@ -68,6 +71,16 @@ fn main() {
 
 	if verbose == true {
 		println('commit-msg file path:\t$commit_msg_file_path')
+	}
+
+	if status == true {
+		content := os.read_file(commit_msg_file_path) or {
+			println('commit-msg hook has not been set!')
+			exit(0)
+		}
+		println('commit-msg hook exists!')
+		println(content)
+		exit(0)
 	}
 
 	if reset == true {
