@@ -33,7 +33,10 @@ fn main() {
 		'Path to a git repository where to add the hook. Defaults to current directory.')
 
 	reset := fp.bool('reset', `r`,
-		false, 'Should the commit-msg hook be reset. If this flag is set, no new commit-msg hook will be generated.')
+		false, 'Reset (remove) the commit-msg hook.')
+
+	verbose := fp.bool('verbose', `v`,
+		false, 'Print program messages.')
 
 	fp.finalize() or {
 		eprintln('Invalid input!')
@@ -43,6 +46,10 @@ fn main() {
 
 	if path == '.' {
 		path = os.getwd()
+	}
+
+	if verbose == true {
+		println('git repository path:\t$path')
 	}
 
 	os.chdir(path) or {
@@ -59,10 +66,18 @@ fn main() {
 
 	commit_msg_file_path := os.join_path(path, '.git', 'hooks', 'commit-msg')
 
+	if verbose == true {
+		println('commit-msg file path:\t$commit_msg_file_path')
+	}
+
 	if reset == true {
-		os.rm(commit_msg_file_path)?
+		os.rm(commit_msg_file_path) or {}
 		println('commit-msg hook was reset!')
 		exit(0)
+	}
+
+	if verbose == true {
+		println('RegEx pattern:\t\t$regex')
 	}
 
 	commit_msg_content := '#!/bin/sh
@@ -77,7 +92,7 @@ test "$(grep -P \'$regex\' "\$1")" || {
 		exit(1)
 	}
 
-	println('Successfully added commit-msg hook: $regex')
+	println('commit-msg hook was set!')
 	exit(0)
 
 }
