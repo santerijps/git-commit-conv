@@ -5,7 +5,7 @@ import os
 
 const (
 	app_title = 'git-commit-conv'
-	app_version = '0.0.1'
+	app_version = '0.1.0'
 	app_description = 'Generate a git commit-msg hook quickly!'
 	pattern_conventional_commits = '^(?:feat|fix|test|docs|refactor)(?:\\(\\w+\\))?: (?:add|update|remove) .+$'
 )

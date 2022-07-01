@@ -7,9 +7,12 @@ You can also provide a path to the git repository and a custom RegEx pattern to 
 ## Usage
 
 ```txt
-git-commit-conv 0.0.1
+git-commit-conv 0.1.0
 -----------------------------------------------
-Usage: git-commit-conv [options]
+Usage: git-commit-conv 
+   or: git-commit-conv --status
+   or: git-commit-conv --regex '^TICKET-\d+: .+$'
+   or: git-commit-conv --path /path/to/repo --regex '^TICKET-\d+: .+$'
 
 Description: Generate a git commit-msg hook quickly!
 
