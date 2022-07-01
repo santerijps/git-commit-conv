@@ -17,7 +17,8 @@ This application does not expect any arguments
 
 Options:
   -r, --regex <string>      The RegEx pattern to compare the commit message to. Defaults to conventional commits.
-  -p, --path <string>       Path to a git repository where to add the hook. Defaults to current directory.       
+  -p, --path <string>       Path to a git repository where to add the hook. Defaults to current directory.
+  -r, --reset               Should the commit-msg hook be reset. If this flag is set, no new commit-msg hook will be generated.
   -h, --help                display this help and exit
   --version                 output version information and exit
 ```

@@ -32,6 +32,9 @@ fn main() {
 		'.',
 		'Path to a git repository where to add the hook. Defaults to current directory.')
 
+	reset := fp.bool('reset', `r`,
+		false, 'Should the commit-msg hook be reset. If this flag is set, no new commit-msg hook will be generated.')
+
 	fp.finalize() or {
 		eprintln('Invalid input!')
 		println(fp.usage())
@@ -55,6 +58,13 @@ fn main() {
 	}
 
 	commit_msg_file_path := os.join_path(path, '.git', 'hooks', 'commit-msg')
+
+	if reset == true {
+		os.rm(commit_msg_file_path)?
+		println('commit-msg hook was reset!')
+		exit(0)
+	}
+
 	commit_msg_content := '#!/bin/sh
 test "$(grep -P \'$regex\' "\$1")" || {
 	echo >&2 \'Commit rejected due to invalid commit message format.\'
