@@ -20,9 +20,14 @@ fn main() {
 
 	fp.limit_free_args(0, 0) or {
 		eprintln('Invalid input!')
-		println(fp.usage())
+		eprintln('Type \'$app_title --help\' for usage.')
 		exit(1)
 	}
+
+	fp.usage_example('')
+	fp.usage_example('--status')
+	fp.usage_example('--regex \'^TICKET-\\d+: .+$\'')
+	fp.usage_example('--path /path/to/repo --regex \'^TICKET-\\d+: .+$\'')
 
 	regex := fp.string('regex', `r`,
 		pattern_conventional_commits,
@@ -43,7 +48,7 @@ fn main() {
 
 	fp.finalize() or {
 		eprintln('Invalid input!')
-		println(fp.usage())
+		eprintln('Type \'$app_title --help\' for usage.')
 		exit(1)
 	}
 
